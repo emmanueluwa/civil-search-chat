@@ -5,7 +5,9 @@ import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
-type Props = {};
+type Props = {
+  onDocumentConfirmation: (data: string) => void;
+};
 
 function compressImage(file: File, callback: (compressedImage: File) => void) {
   const reader = new FileReader();
@@ -48,10 +50,13 @@ function compressImage(file: File, callback: (compressedImage: File) => void) {
   reader.readAsDataURL(file);
 }
 
-const ReportComponent = ({}: Props) => {
+const ReportComponent = ({ onDocumentConfirmation }: Props) => {
   const { toast } = useToast();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [base64Data, setBase64Data] = useState("");
+  const [documentData, setDocumentData] = useState("");
 
   function handleReportSelection(event: ChangeEvent<HTMLInputElement>): void {
     if (!event.target.files) return;
@@ -109,7 +114,7 @@ const ReportComponent = ({}: Props) => {
     }
   }
 
-  async function extractDetails(): void {
+  async function extractDetails(): Promise<void> {
     if (!base64Data) {
       toast({
         description: "Upload a valid document",
@@ -117,6 +122,8 @@ const ReportComponent = ({}: Props) => {
       });
       return;
     }
+
+    setIsLoading(true);
 
     const response = await fetch("api/extract-document-gemini", {
       method: "POST",
@@ -129,7 +136,8 @@ const ReportComponent = ({}: Props) => {
     });
     if (response.ok) {
       const documentText = await response.text();
-      console.log(documentText);
+      setDocumentData(documentText);
+      setIsLoading(false);
     }
   }
 
@@ -137,6 +145,11 @@ const ReportComponent = ({}: Props) => {
     <div className="grid w-full items-start gap-6 overflow-auto p-4 pt-0">
       <fieldset className="relative grid gap-6 rounded-lg border p-4">
         <legend className="text-sm font-medium">Report</legend>
+        {isLoading && (
+          <div className="absolute z-10 h-full w-full bg-card/90 rounded-lg flex flex-row items-center justify-center">
+            extracting...
+          </div>
+        )}
         <Input type="file" onChange={handleReportSelection} />
 
         <Button onClick={extractDetails}>1. Upload file</Button>
@@ -144,10 +157,21 @@ const ReportComponent = ({}: Props) => {
         <Label>Report Summary</Label>
 
         <Textarea
+          value={documentData}
+          onChange={(e) => {
+            setDocumentData(e.target.value);
+          }}
           className="min-h-72 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
           placeholder="Extracted data from the document will appear here. Get better responses by providing additional information about the project if possible."
         />
-        <Button className="bg-gray-600">2. Continue</Button>
+        <Button
+          onClick={() => {
+            onDocumentConfirmation(documentData);
+          }}
+          className="bg-gray-600"
+        >
+          2. Continue
+        </Button>
       </fieldset>
     </div>
   );
