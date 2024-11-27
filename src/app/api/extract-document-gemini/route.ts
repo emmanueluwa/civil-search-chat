@@ -15,9 +15,10 @@ export async function POST(req: Request, res: Response) {
   const filePart = fileToGenerativePart(base64);
 
   const generatedContent = await model.generateContent([prompt, filePart]);
-  console.log(generatedContent);
 
-  return new Response("got here", { status: 200 });
+  const documentText = generatedContent.response.text();
+
+  return new Response(documentText, { status: 200 });
 }
 
 function fileToGenerativePart(imageData: string) {
