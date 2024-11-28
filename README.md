@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Eurocode 2 Concrete Structure Analysis Application
 
-## Getting Started
+## Overview
 
-First, run the development server:
+In this project I am combining my experienced gained during my civil and structural engineering degree, with my interests in web development and ai.
+
+This application leverages advanced AI technologies to provide comprehensive analysis of concrete structures using the Eurocode 2 (EN 1992) design standard. It enables engineers and researchers to upload project documents and ask questions about concrete design, structural failure analysis, and compliance with Eurocode 2 guidelines.
+
+## Key Features
+
+- **Document Upload**: Upload project documents, case studies, or structural analysis reports
+- **AI-Powered Insights**: Extract and analyze key information using advanced AI technologies
+- **Knowledge Base Querying**: Perform similarity searches against a Eurocode 2 vector embedding database
+- **Personalized Recommendations**: Receive context-aware insights based on Eurocode 2 standards
+
+## Technologies Used
+
+- Next.js
+- Pinecone Vector Database
+- Shadcn/ui
+- Vercel AI SDK
+- Hugging Face Inference API
+- Vector Embeddings for Eurocode 2 Knowledge Base
+
+## Prerequisites
+
+- Node.js (version 18 or later)
+- Pinecone Account
+- Hugging Face Account
+- OpenAI or Google AI API Key
+
+## Installation
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/emmanueluwa/civil-search-chat
+cd civil-search-chat
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
+
+3. Create a `.env.local` file with the following environment variables:
+
+```
+PINECONE_API_KEY=your_pinecone_api_key
+HUGGINGFACE_API_KEY=your_huggingface_api_key
+OPENAI_API_KEY=your_openai_api_key
+```
+
+4. Prepare the Eurocode 2 Knowledge Base
+
+- Collect relevant Eurocode 2 documents
+- Convert documents to vector embeddings
+- Index embeddings in Pinecone
+
+5. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Upload a concrete structure project document
+2. Let the AI extract key information
+3. Verify and confirm the extracted data
+4. Ask specific questions about the document, design standards, or structural analysis
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Knowledge Base Creation
 
-## Learn More
+The application uses vector embeddings of Eurocode 2 documents to provide contextually relevant answers. The knowledge base is created by:
 
-To learn more about Next.js, take a look at the following resources:
+- found here [[link to knowledge base repository](https://github.com/emmanueluwa/civil-search)]
+- Preprocessing Eurocode 2 documentation
+- Generating vector embeddings using Hugging Face models
+- Indexing embeddings in Pinecone for efficient similarity search
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Future Improvements
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Enhanced image analysis capabilities
+- Support for more document formats
+- Expanded Eurocode 2 knowledge base
+- More advanced structural design recommendations
