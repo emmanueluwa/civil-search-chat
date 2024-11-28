@@ -1,4 +1,5 @@
 "use client";
+import ChatComponent from "@/components/ChatComponent";
 import { ModeToggle } from "@/components/mode-toggle";
 import ReportComponent from "@/components/ReportComponent";
 import { Button } from "@/components/ui/button";
@@ -52,6 +53,9 @@ const HomeComponent = ({}: Props) => {
         <main className="grid flex-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3">
           <div className="hidden md:flex flex-col">
             <ReportComponent onDocumentConfirmation={onDocumentConfirmation} />
+          </div>
+          <div className="lg:col-span-2">
+            <ChatComponent documentData={documentData} />
           </div>
         </main>
       </div>
