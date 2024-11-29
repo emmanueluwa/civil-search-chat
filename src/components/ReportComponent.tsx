@@ -117,6 +117,7 @@ const ReportComponent = ({ onDocumentConfirmation }: Props) => {
         throw new Error("Failed to extract document details");
       }
     } catch (error) {
+      console.log(error);
       toast({
         description: "Failed to extract document details",
         variant: "destructive",

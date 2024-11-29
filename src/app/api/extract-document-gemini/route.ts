@@ -9,7 +9,7 @@ const prompt = `Attached is a case study of a structural failure. Go over the ca
     Then summarize in 70 words. You may increase the word limit if the case study has multiple pages. Make sure to include numerical values and key details from the 
     case study, including the case study title. ## Summary: `;
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const { base64 } = await req.json();
 
   const filePart = fileToGenerativePart(base64);
