@@ -1,4 +1,6 @@
-"use client";
+export const maxDuration = 50;
+
+("use client");
 import { useState } from "react";
 import ChatComponent from "@/components/ChatComponent";
 import { ModeToggle } from "@/components/mode-toggle";
