@@ -1,6 +1,7 @@
 import { Pinecone } from "@pinecone-database/pinecone";
 import { HfInference } from "@huggingface/inference";
-const inference = new HfInference(process.env.HUGGINGFACE_TOKEN!);
+import { env } from "./env";
+const inference = new HfInference(env.HUGGINGFACE_TOKEN);
 
 export async function queryPineConeVectorStore(
   client: Pinecone,

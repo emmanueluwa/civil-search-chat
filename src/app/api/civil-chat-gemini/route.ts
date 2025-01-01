@@ -3,15 +3,16 @@ import { Pinecone } from "@pinecone-database/pinecone";
 import { queryPineConeVectorStore } from "@/utils";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { streamText } from "ai";
+import { env } from "@/env";
 
 const google = createGoogleGenerativeAI({
   baseURL: "https://generativelanguage.googleapis.com/v1beta",
-  apiKey: process.env.GEMINI_API_KEY!,
+  apiKey: env.GEMINI_API_KEY,
 });
 const model = google("gemini-1.5-pro-latest");
 
 const pc = new Pinecone({
-  apiKey: process.env.PINECONE_API_KEY!,
+  apiKey: env.PINECONE_API_KEY,
 });
 
 export async function POST(req: Request) {
